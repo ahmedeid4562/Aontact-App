@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "582754600862",
+    "project_id": "contac-app-6ad46",
+    "storage_bucket": "contac-app-6ad46.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:582754600862:android:9f92de40b941b2582cb88f",
+        "android_client_info": {
+          "package_name": "com.example.contact_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBNslY_H-dgVq-lSwdfQNkKLHqiZXoYjHc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

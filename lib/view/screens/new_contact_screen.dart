@@ -16,6 +16,10 @@ class _AddContactScreenState extends State<AddContactScreen> {
 
   String? contactId;
 
+  final Color primaryColor = const Color(0xff4F6FD8);
+  final Color backgroundColor = const Color(0xffF5F7FB);
+  final Color textColor = const Color(0xff1F2937);
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -26,7 +30,6 @@ class _AddContactScreenState extends State<AddContactScreen> {
       final data = arguments as Map<String, dynamic>;
 
       contactId = data["id"];
-
       nameController.text = data["name"];
       phoneController.text = data["phone"];
     }
@@ -35,9 +38,7 @@ class _AddContactScreenState extends State<AddContactScreen> {
   Future<void> saveContact() async {
     if (contactId == null) {
       // Add Contact
-      await FirebaseFirestore.instance
-          .collection("contact")
-          .add({
+      await FirebaseFirestore.instance.collection("contact").add({
         "name": nameController.text,
         "phone": phoneController.text,
       });
@@ -69,19 +70,19 @@ class _AddContactScreenState extends State<AddContactScreen> {
     final isEdit = contactId != null;
 
     return Scaffold(
-      backgroundColor: const Color(0xffF5F7FB),
+      backgroundColor: backgroundColor,
 
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: const Color(0xffF5F7FB),
+        backgroundColor: backgroundColor,
 
         leading: IconButton(
           onPressed: () {
             Navigator.pop(context);
           },
-          icon: const Icon(
+          icon: Icon(
             Icons.arrow_back_ios_new,
-            color: Colors.black,
+            color: textColor,
           ),
         ),
 
@@ -89,17 +90,17 @@ class _AddContactScreenState extends State<AddContactScreen> {
           children: [
             Icon(
               isEdit ? Icons.edit : Icons.person_add_alt_1,
-              color: Colors.black,
+              color: primaryColor,
             ),
 
             const SizedBox(width: 10),
 
             Text(
               isEdit ? "Edit Contact" : "Add Contact",
-              style: const TextStyle(
+              style: TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
-                color: Colors.black,
+                color: textColor,
               ),
             ),
           ],
@@ -112,7 +113,6 @@ class _AddContactScreenState extends State<AddContactScreen> {
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-
             children: [
               const SizedBox(height: 10),
 
@@ -121,15 +121,18 @@ class _AddContactScreenState extends State<AddContactScreen> {
                 child: Container(
                   width: 90,
                   height: 90,
+
                   decoration: BoxDecoration(
-                    color: Colors.black,
-                    borderRadius: BorderRadius.circular(45),
+                    color: primaryColor.withValues(alpha: 0.12),
+                    shape: BoxShape.circle,
                   ),
+
                   child: Icon(
                     isEdit
                         ? Icons.edit
                         : Icons.person_add_alt_1,
-                    color: Colors.white,
+
+                    color: primaryColor,
                     size: 45,
                   ),
                 ),
@@ -142,10 +145,11 @@ class _AddContactScreenState extends State<AddContactScreen> {
                   isEdit
                       ? "Update your contact information"
                       : "Create a new contact",
-                  style: const TextStyle(
+
+                  style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
-                    color: Colors.black,
+                    color: textColor,
                   ),
                 ),
               ),
@@ -157,7 +161,9 @@ class _AddContactScreenState extends State<AddContactScreen> {
                   isEdit
                       ? "Change the information below and save"
                       : "Enter the contact information below",
+
                   textAlign: TextAlign.center,
+
                   style: const TextStyle(
                     fontSize: 14,
                     color: Colors.grey,
@@ -169,11 +175,13 @@ class _AddContactScreenState extends State<AddContactScreen> {
 
               // Contact Information Card
               Card(
-                elevation: 3,
+                elevation: 2,
                 color: Colors.white,
+
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20),
                 ),
+
                 child: Padding(
                   padding: const EdgeInsets.all(20),
 
@@ -202,9 +210,12 @@ class _AddContactScreenState extends State<AddContactScreen> {
               // Save Button
               SizedBox(
                 width: double.infinity,
+
                 child: CustomMaterialButton(
                   onPressed: saveContact,
-                  text: isEdit ? "Update Contact" : "Save Contact",
+                  text: isEdit
+                      ? "Update Contact"
+                      : "Save Contact",
                 ),
               ),
 
@@ -216,10 +227,12 @@ class _AddContactScreenState extends State<AddContactScreen> {
                     onPressed: () {
                       Navigator.pop(context);
                     },
+
                     icon: const Icon(
                       Icons.close,
                       color: Colors.grey,
                     ),
+
                     label: const Text(
                       "Cancel",
                       style: TextStyle(
